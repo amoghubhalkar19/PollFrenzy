@@ -1,24 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
+import Create from './Components/Create';
+import Lander from './Components/Lander';
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import Monitor from './Components/Monitor';
+import Vote from './Components/Vote';
+import { useState } from 'react';
 
 function App() {
+  const [Data, setData] = useState([]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Lander/>} />
+        <Route path='/create' element={<Create data={Data} setdata={setData}/>}/>
+        <Route path='/monitor' element={<Monitor/>}/>
+        <Route path='/vote' element={<Vote/>}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
