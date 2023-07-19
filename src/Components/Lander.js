@@ -18,7 +18,8 @@ function Lander() {
                     </div>
                 </div>
             </div>
-        </div></>
+        </div>
+        </>
     )
 }
 

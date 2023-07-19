@@ -1,39 +1,31 @@
 import React from 'react'
 import { useState } from 'react';
 import Header from './Header';
-import fs from 'fs';
-import data from './data.json';
+import axios from 'axios';
+<script src='https://unpkg.com/axios/dist/axios.min.js'></script>
 
-function Create() {
-  var num;
-  const [placeholder, setPlaceholder] = useState("option");
-  const [val, setVal] = useState([]);
+function Create() { 
   const [title, setTitle] = useState("");
   const [opt1, setOpt1] = useState("");
   const [opt2, setOpt2] = useState("");
-  // const [number, setNumber] = useState(3);
-  // const addOption = () => {
-  //   setVal([...val, []]);
-  //   setPlaceholder("Option ", number);
-  //   num = number;
-  //   setNumber(num);
-  //   num = num + 1;
-  // }
 
   const handleTitle = () => {
     setTitle(document.getElementById("title").value);
-    // setdata(...data, title);
   }
   const handleChange = () => {
-    console.log("input");
-    let a = JSON.stringify(data);
-    let b= JSON.parse(a);
-    // fs.readFile('./data.json', {encoding:'utf-8'}, (err, jsonString)=>{
-    //   let abc= JSON.stringify(jsonString);
-    //   let bc=JSON.parse(abc);
-    //   console.log(abc);
-      fs.writeFile('./data.json', b);
-    // })
+    console.log("input"); 
+    setOpt1(document.getElementById("opt1").value);
+    setOpt2(document.getElementById("opt2").value);
+  }
+  const handleSubmit=()=> {
+
+    const data = {
+      Title: title,
+      Option1: opt1,
+      Option2: opt2
+    }
+    console.log(data);
+    axios.post('/create', data);
     
   }
 
@@ -54,15 +46,14 @@ return (
         <span className="input-group-text" id="basic-addon1">Option 2</span>
         <input type="text" id="opt2" class="form-control" placeholder="Option 2" onChange={handleChange} aria-label="Username" aria-describedby="basic-addon1" />
       </div>
-
     </div>
+    <button type="button" class="btn btn-primary mx-5" onClick={handleSubmit}>Submit</button>
   </>
 )
 }
 
 export default Create
 {/* <button type="button" class="btn btn-dark" onClick={addOption}>Add Option</button> */}
-{/* <button type="button" class="btn btn-primary mx-5" onClick={handleSubmit}>Submit</button> */}
 {/* {val.map((i) => {
   return (
     <div key={i} className="input-group mb-3">
