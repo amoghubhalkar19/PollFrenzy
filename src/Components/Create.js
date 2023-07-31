@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import Header from './Header';
 import axios from 'axios';
+import { Link } from "react-router-dom"
 <script src='https://unpkg.com/axios/dist/axios.min.js'></script>
 
 function Create() { 
@@ -18,14 +19,19 @@ function Create() {
     setOpt2(document.getElementById("opt2").value);
   }
   const handleSubmit=()=> {
+    const min = 10000; // Minimum 5-digit number
+    const max = 99999; // Maximum 5-digit number
+    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    const uniquecode="#"+randomNumber.toString();
 
     const data = {
+      ID:uniquecode,
       Title: title,
       Option1: opt1,
       Option2: opt2
     }
     console.log(data);
-    axios.post('/create', data);
+    axios.post('/create', {"data":data});
     
   }
 
@@ -47,7 +53,7 @@ return (
         <input type="text" id="opt2" class="form-control" placeholder="Option 2" onChange={handleChange} aria-label="Username" aria-describedby="basic-addon1" />
       </div>
     </div>
-    <button type="button" class="btn btn-primary mx-5" onClick={handleSubmit}>Submit</button>
+    <button type="button" class="btn btn-primary mx-5" onClick={handleSubmit}><Link to='/' style={{color:"yellow"}}>Submit</Link></button>
   </>
 )
 }
